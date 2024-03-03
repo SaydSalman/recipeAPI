@@ -29,11 +29,15 @@ export class HomeComponent implements OnInit {
  sortRecipes(option:string){
     if(option === 'All'){
       this.recipes= this.allRecipesGlobal
-      return;
+      
+    }else{
+      this.recipes = this.allRecipesGlobal.filter((item)=>{
+        if(item.mealType.includes(option)){
+          return item;
+        }
+      })
     }
-    this.recipes = this.allRecipesGlobal.filter((item)=>{
-      item.mealType.includes(option)
-    })
+    
  }
 
  
