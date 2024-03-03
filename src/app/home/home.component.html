@@ -1,0 +1,32 @@
+<div class="container-fluid">
+    <div class="row text-center">
+        <div class="col-lg-12 text-center">
+            <input [(ngModel)]="searchKey"  class="form-control mt-5" type="search" placeholder="Search by name or cuisine" aria-label="Search">
+        </div>
+        
+    </div>
+    <div class="d-flex align-items-center">
+        <label *ngFor="let option of selections">
+            <input type="radio" name="type" value="option" checked>
+            <p (click)="sortRecipes(option)">{{option}}</p>
+        </label>
+    </div>
+    <div class="row p-5">
+        <div *ngFor="let recipe of recipes | search : searchKey | paginate: { itemsPerPage: 8, currentPage: p }" class="col-lg-3 p-3">
+            <div class="card" style="width: 18rem;">
+                <img  [src]="recipe.image" class="card-img-top img-fluid" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">{{recipe.name}}</h5>
+                  <p class="card-text">Cuisine: <span>{{recipe.cuisine}}</span></p>
+                  <p class="card-text">Meal Type: <span>{{recipe.mealType}}</span></p>
+                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+              </div>
+        </div>
+        <div *ngIf="(recipes | search : searchKey).length==0">
+            <h4 class="text-center text-danger">Recipe Not Found</h4>
+        </div>
+        
+    </div>
+    <div class="text-center mt-5" ><pagination-controls (pageChange)="p = $event"></pagination-controls></div>
+</div>
